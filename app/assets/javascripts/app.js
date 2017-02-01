@@ -7,14 +7,16 @@ app.run(function ($rootScope) {
  });
 
 app.config(
-  ["$httpProvider", "$stateProvider", "$urlRouterProvider",
-    function($httpProvider, $stateProvider, $urlRouterProvider) {
+  ["$httpProvider", "$stateProvider", "$urlRouterProvider", "RestangularProvider",
+    function($httpProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
+      // CSRF stuff
       var token = $('meta[name=csrf-token]').attr('content');
       $httpProvider
         .defaults
         .headers
         .common['X-CSRF-Token'] = token;
 
+      // routing
       $urlRouterProvider.otherwise('');
 
       $stateProvider
@@ -23,6 +25,10 @@ app.config(
           templateUrl: '/templates/messages/index.html',
           controller: 'MessagesCtrl'
         });
+
+      // Restangular
+      RestangularProvider.setBaseUrl('/api/v1');
+      RestangularProvider.setRequestSuffix('.json');
     }
   ]
 );

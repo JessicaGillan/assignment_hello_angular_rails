@@ -1,6 +1,6 @@
 app.controller('MessagesCtrl',
-  ['$scope',
-  function($scope) {
-    $scope.test = "this is a test var";
+  ['$scope', 'Restangular',
+  function($scope, Restangular) {
+    $scope.messages = Restangular.all('messages').getList().$object;
   }
 ]);
