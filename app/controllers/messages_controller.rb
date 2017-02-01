@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
     ]
 
     respond_to do |format|
-      format.json { @messages }
+      format.json { render json: @messages }
     end
   end
 end
